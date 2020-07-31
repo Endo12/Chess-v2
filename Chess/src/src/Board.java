@@ -1,14 +1,16 @@
+package src;
+
 public class Board {
   public Tile[][] tileBoard;
-  public pointsForWhite = 0; 
-  public pointsForBlack = 0; 
+  public static int pointsForWhite = 0; 
+  public static int pointsForBlack = 0; 
   
   public Board() {
     for(int i= 0; i < 8; i++) { //create pawns 
       tileBoard[1][i] = new Tile(1, i, new Pawn(true)); 
       tileBoard[6][i] = new Tile(6, i, new Pawn(false)); 
     }
-    for(int i = 2, i < 6, i++) { //create empty spaces
+    for(int i = 2; i < 6; i++) { //create empty spaces
        for(int j = 0; j < 8; j++) {
           tileBoard[i][j] = new Tile(i, j, null);  
        }

@@ -3,9 +3,10 @@ package src;
 public abstract class Piece {
 	private boolean isWhite, isAlive; //maybe get rid of isAlive?
 	private int points;
-	public Piece(boolean isWhite) {
+	public Piece(boolean isWhite, int points) {
 		this.isWhite = isWhite;
 		isAlive = true;
+		this.points = points;
 	}
 	public abstract boolean canMove(Tile start, Tile end);
 	public boolean moveTo(Tile start, Tile end) { //doesn't work for castling
@@ -13,7 +14,12 @@ public abstract class Piece {
 			Piece captured = end.getPiece();
 			if(captured != null) {
 				captured.isAlive = false;
-				//Code to send points to main
+				if(captured.getColor()) {
+					Board.pointsForBlack += captured.points;
+				}
+				else {
+					Board.pointsForWhite += captured.points;
+				}
 				captured = null;
 			}
 			end.setPiece(this);
@@ -23,5 +29,8 @@ public abstract class Piece {
 		else {
 			return false;
 		}
+	}
+	public boolean getColor() {
+		return isWhite;
 	}
 }

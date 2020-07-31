@@ -21,4 +21,16 @@ public class Tile {
 	public Piece getPiece(){
 		return this.piece;
 	}
+	public boolean equals(Object o) {
+		if(this == o) {
+			return true;
+		}
+		else if(!(o instanceof Tile)) {
+			return false;
+		}
+		else {
+			Tile t = (Tile) o;
+			return XPOS == t.getX() && YPOS == t.getY() && piece == t.getPiece();
+		}
+	}
 }

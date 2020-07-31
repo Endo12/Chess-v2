@@ -1,7 +1,7 @@
 package src;
 
 public class Board {
-  public Tile[][] tileBoard;
+  public static Tile[][] tileBoard;
   public static int pointsForWhite = 0; 
   public static int pointsForBlack = 0; 
   

@@ -11,22 +11,21 @@ public class Bishop extends Piece {
     boolean moveIsDiagonal = true; 
     boolean avoidsCollisions = true; 
     
-    if (!end.getPiece() && this.getColor != end.getPiece().getColor() && start != end) { // can only move to a tile with a different color piece or an empty tile (start/end are different) 
+    if (!end.getPiece() || this.getColor != end.getPiece().getColor() && start != end) { // can only move to a tile with a different color piece or an empty tile (start/end are different) 
       int diffX = Math.abs(start.getX(), end.getX()); 
       int diffY = Math.abs(start.getY(), end.getY()); 
-      int tempX = start.getX(); 
+      int tempX = start.getX(); //used to check 
       int tempY = start.getX(); 
       if (diffX == diffY) { //the proposed move is diagonal, now check for collisions before move can be completed 
-         while (tempX != end.getX() && tempY != end.getY()) {
-           Tile temp = 
-           if (start.getX() < end.getX()) {
+         while (tempX != end.getX() && tempY != end.getY()) { //check each tile in the diagonal for a collision before the end is reached
+           if (start.getX() < end.getX()) { //we know we increment x for diagonal
             tempX++; 
-           } else {
+           } else { //we decrement x for diagonal
               tempX--;  
            }
-          if (start.getY() < end.getY()) {
+          if (start.getY() < end.getY()) { //we know we inrement y for diagonal 
             tempY++;  
-          } else {
+          } else { //we decrement y for diagonal 
             tempY--;  
           }
          }

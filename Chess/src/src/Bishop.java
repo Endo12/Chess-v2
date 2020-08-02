@@ -20,6 +20,7 @@ public class Bishop extends Piece {
          while (tempX != end.getX() && tempY != end.getY()) { //check each tile in the diagonal for a collision before the end is reached
            
            Tile[][] tiles = Board.tileBoard; //retrieve tileBoard from the Board class
+           
            if (start.getX() < end.getX()) { //we know we increment x for diagonal
             tempX++; 
            } else { //we decrement x for diagonal
@@ -30,7 +31,13 @@ public class Bishop extends Piece {
           } else { //we decrement y for diagonal 
             tempY--;  
           }
-         }
+           if (tempX != end.getX() && tempY != end.getY() && tiles[tempX][tempY].getPiece() != null) { // if we haven't completed our diagonal check and we found a piece in the way
+             return false;
+           }
+         } // diagonal check completed
+-        return true; 
+      } else { //move not diagonal 
+        return false;  
       }
     } else {
       return false;  

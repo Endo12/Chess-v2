@@ -32,7 +32,7 @@ public class Pawn extends Piece {
       }
    } else {
          return false;  
-    }
+      }
   
   
   

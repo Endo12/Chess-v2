@@ -5,29 +5,11 @@ public class Bishop extends Piece {
   }
   
   public boolean canMove(Tile start, Tile end) {
-     // checklist: different start/end, that the move is "diagonal", that it avoids collisions along the way, and that when it does collide, it's w/ opposite color, no out of bounds
+     // checklist: different start/end, that the move is "diagonal", that it avoids collisions along the way, and that when it does collide, it's w/ opposite color
+    boolean isWhite = this.getColor(); //
+    
+    
+    
+    
   }
-  
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

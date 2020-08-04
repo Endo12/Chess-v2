@@ -14,5 +14,4 @@ public boolean canMove(Tile start, Tile end) {
 	} 
 	return false; 
 }
-
 }

@@ -1,4 +1,4 @@
-public class Horse extends Piece {
+public class Knight extends Piece {
 
 public Horse(boolean isWhite) {
 	super(isWhite); 

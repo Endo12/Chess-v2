@@ -22,4 +22,5 @@ public class King extends Piece {
 		}	
 		return false; // move was not legal in terms of direction/# of tiles	
 	}
+	
 }

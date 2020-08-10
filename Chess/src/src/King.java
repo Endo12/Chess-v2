@@ -1,7 +1,7 @@
 public class King extends Piece {
 	
-	public King(boolean isWhite) {
-		super(isWhite); 	
+	public King(boolean isWhite, int points) {
+		super(isWhite, points); 	
 	}
 	
 	public boolean canMove(Tile start, Tile end) {

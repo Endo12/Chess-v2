@@ -1,7 +1,7 @@
 public class Knight extends Piece {
 
-public Horse(boolean isWhite) {
-	super(isWhite); 
+public Horse(boolean isWhite, int points) {
+	super(isWhite, points); 
 }
 
 public boolean canMove(Tile start, Tile end) {

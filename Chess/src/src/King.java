@@ -27,4 +27,12 @@ public class King extends Piece {
 		return false; // move was not legal in terms of direction/# of tiles	
 	}
 	
+	public boolean isKing() {
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return (this.getColor() ? "W" : "B") + "Ki";
+	}
 }

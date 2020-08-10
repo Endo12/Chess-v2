@@ -14,11 +14,21 @@ public abstract class Piece {
 			Piece captured = end.getPiece();
 			if(captured != null) {
 				captured.isAlive = false;
-				if(captured.getColor()) {
-					Board.pointsForBlack += captured.points;
+				if(captured.isKing()) {
+					if(captured.getColor()) {
+						Board.whiteAlive = false;
+					}
+					else {
+						Board.blackAlive = false;
+					}
 				}
 				else {
-					Board.pointsForWhite += captured.points;
+					if(captured.getColor()) {
+						Board.pointsForBlack += captured.points;
+					}
+					else {
+						Board.pointsForWhite += captured.points;
+					}
 				}
 				captured = null;
 			}
@@ -33,4 +43,8 @@ public abstract class Piece {
 	public boolean getColor() {
 		return isWhite;
 	}
+	public boolean isKing() {
+		return false;
+	}
+	public abstract String toString();
 }

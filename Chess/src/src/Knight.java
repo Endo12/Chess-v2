@@ -16,4 +16,9 @@ public class Knight extends Piece {
 		} 
 		return false; 
 	}
+
+	@Override
+	public String toString() {
+		return (this.getColor() ? "W" : "B") + "Kn";
+	}
 }

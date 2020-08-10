@@ -1,0 +1,36 @@
+LIST OF ALL CHESS URL's:
+
+Chessboard URL: 
+https://cdn.shopify.com/s/files/1/1297/3303/products/standard-walnut-chess-board-21184254145_1024x1024.jpg?v=1568816631
+
+Pawn URL:
+W
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_plt45.svg
+B
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_pdt45.svg
+King:
+W
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_klt45.svg
+B
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_kdt45.svg
+Queen:
+W
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_qlt45.svg
+B
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_qdt45.svg
+Knight: 
+W 
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_nlt45.svg
+B
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_ndt45.svg
+Bishop:
+W
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_blt45.svg
+B
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_bdt45.svg
+Rook:
+W
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_rlt45.svg
+B
+https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_rdt45.svg
+

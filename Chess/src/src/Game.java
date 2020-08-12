@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Scanner;
+
 public class Game {
 
 	public Game() {
@@ -15,8 +17,29 @@ public class Game {
 			boolean invalidMove = true;
 			Board.printBoard();
 			while(invalidMove) {
-				System.out.println("Please pick starting position/piece");
+				Scanner scan = new Scanner(System.in);
+				System.out.println("Please pick starting row position/piece");
+				int startRow = scan.nextInt();
+				System.out.println("Please pick starting column position/piece");
+				int startCol = scan.nextInt();
+				System.out.println("Please pick ending row position/piece");
+				int endRow = scan.nextInt();
+				System.out.println("Please pick ending column position/piece");
+				int endCol = scan.nextInt();
+				Tile start = Board.tileBoard[startRow][startCol], end = Board.tileBoard[startRow]
+						[startCol];
+				Piece myPiece = start.getPiece();
+				if(myPiece != null && myPiece.getColor() == isWhite && myPiece.moveTo(start, end)) {
+					System.out.println("Move completed successfully");
+					invalidMove = false;
+				}
+				else {
+					System.out.println("Error: move invalid");
+				}
 			}
+			isWhite = !isWhite;
 		}
+		System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 
+				Board.pointsForWhite + "\nBlack points: " + Board.pointsForBlack);
 	}
 }

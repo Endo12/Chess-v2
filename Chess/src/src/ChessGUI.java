@@ -14,7 +14,7 @@ public class ChessGUI extends Application{
             for (int c = 0; c < 8; c++) {
                 Rectangle tile = new Rectangle();
                 Color color;
-                if ((r) % 2 == 0) color = Color.WHITE;
+                if ((r % 2 == 0 && c % 2 == 0) || (r %2 != 0 && r % 2 != 0)) color = Color.WHITE;
                 else color = Color.BLACK;
                 tile.setFill(color);
                 gPane.add(tile, c, r);

@@ -1,40 +1,31 @@
-NEW WHITE PAWN:
-https://static.thenounproject.com/png/722241-200.png
-
-
-LIST OF ALL CHESS URL's:
-
-Chessboard URL: 
-https://cdn.shopify.com/s/files/1/1297/3303/products/standard-walnut-chess-board-21184254145_1024x1024.jpg?v=1568816631
 
 Pawn URL:
 W
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_plt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wpawn.png
 B
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_pdt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/bpawn.png
 King:
 W
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_klt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wking.png
 B
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_kdt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/bking.png
 Queen:
 W
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_qlt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wqueen.png
 B
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_qdt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/bqueen.png
 Knight: 
 W 
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_nlt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wknight.png
 B
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_ndt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/bknight.png
 Bishop:
 W
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_blt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wbishop.png
 B
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_bdt45.svg
+https://github.com/jlundstedt/chess-java/blob/master/resources/bbishop.png?raw=true
 Rook:
 W
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_rlt45.svg
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wrook.png
 B
-https://simple.wikipedia.org/wiki/Chess_piece#/media/File:Chess_rdt45.svg
-
+https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/brook.png

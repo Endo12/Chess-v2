@@ -1,6 +1,11 @@
+package src;
+
 import javafx.application.Application;
 
 import javafx.scene.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class ChessGUI {
@@ -13,8 +18,8 @@ public class ChessGUI {
                 Color color;
                 if ((r) % 2 == 0) color = Color.WHITE;
                 else color = Color.BLACK;
-                square.setFill(color);
-                root.add(tile, c, r);
+                tile.setFill(color);
+                gPane.add(tile, c, r);
                 tile.widthProperty().bind(gPane.widthProperty().divide(8));
                 tile.heightProperty().bind(gPane.heightProperty().divide(8));
             }

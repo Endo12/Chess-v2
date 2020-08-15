@@ -26,8 +26,8 @@ public class Game {
 				int endRow = scan.nextInt();
 				System.out.println("Please pick ending column position/piece");
 				int endCol = scan.nextInt();
-				Tile start = Board.tileBoard[startRow][startCol], end = Board.tileBoard[startRow]
-						[startCol];
+				Tile start = Board.tileBoard[startRow][startCol], end = Board.tileBoard[endRow]
+						[endCol];
 				Piece myPiece = start.getPiece();
 				if(myPiece != null && myPiece.getColor() == isWhite && myPiece.moveTo(start, end)) {
 					System.out.println("Move completed successfully");
@@ -41,5 +41,9 @@ public class Game {
 		}
 		System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 
 				Board.pointsForWhite + "\nBlack points: " + Board.pointsForBlack);
+	}
+	
+	public static void main(String [] args) {
+		playGame();
 	}
 }

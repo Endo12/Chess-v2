@@ -4,7 +4,7 @@ public class Tile {
 	private final int XPOS;
 	private final int YPOS;
 	private Piece piece;
-	public Tile(int XPOS, int YPOS, Piece piece){
+	public Tile(int YPOS, int XPOS, Piece piece){
 		this.XPOS = XPOS;
 		this.YPOS = YPOS;
 		this.piece = piece;

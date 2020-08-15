@@ -14,8 +14,10 @@ public class King extends Piece {
 				Tile[][] tiles = Board.tileBoard; 
 				for(Tile[] r: tiles) { // check every tile on the board...
 					for(Tile t: r) {
-						if (t.getPiece().getColor() != this.getColor()) { //if the tile has an enemy piece 
-							if (t.getPiece().canMove(t, end)) { // and the piece can move to "Tile end"
+						Piece enemy = t.getPiece();
+						//if the tile has an enemy piece
+						if(enemy != null && enemy.getColor() != this.getColor()) {  
+							if (enemy.canMove(t, end)) { // and the piece can move to "Tile end"
 								return false; // the move would put king in check, can't move to "Tile end"
 							}
 						}

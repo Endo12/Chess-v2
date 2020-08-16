@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -24,15 +25,21 @@ public class ChessGUI extends Application{
                 Rectangle tile = new Rectangle();
                 Color color = r % 2 == c % 2 ? Color.WHITE : Color.BLACK;
                 tile.setFill(color);
-                //tile.setFill(new ImagePattern(new Image("https://static.thenounproject.com/png/722241-200.png")));
-                gPane.add(tile, r, c);
                 tile.widthProperty().bind(gPane.widthProperty().divide(8));
                 tile.heightProperty().bind(gPane.heightProperty().divide(8));
+                StackPane stack = new StackPane();
+                ImageView imv = new ImageView(new 
+                		Image("https://static.thenounproject.com/png/722241-200.png"));
+                imv.setFitHeight(100);
+				imv.setFitWidth(100);
+                stack.getChildren().addAll(tile, imv);
+                gPane.add(stack, r, c);
+                
             }
         }
-        updateBoard(gPane);
-        gPane.add(new Group(new HBox(new ImageView(new Image("https://static.thenounproject.com/png/722241-200.png")))), 0, 0);
-        primaryStage.setScene(new Scene(gPane, 600, 600));
+        //updateBoard(gPane);
+        primaryStage.setTitle("Chess");
+        primaryStage.setScene(new Scene(gPane, 815, 815));
         primaryStage.show();
     }
     public void updateBoard(GridPane gPane) {

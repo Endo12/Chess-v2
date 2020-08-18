@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -18,24 +21,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class ChessGUI extends Application{
+public class ChessGUI extends Application {
 	GridPane gPane = new GridPane();
     public void start(Stage primaryStage) {
-        Board b = new Board();
-        updateBoard(gPane);
-        Label move = new Label("White's Move");
-        gPane.add(move, 8, 0);
-        Label wpoints = new Label("White's Points:");
-        gPane.add(wpoints, 8, 1);
-        Label bpoints = new Label("Black's Points");
-        gPane.add(bpoints, 8, 2);
+        updateLabels();
+        updateBoard(gPane, primaryStage);
+        updateLabels();
         primaryStage.setTitle("Chess");
         primaryStage.setScene(new Scene(gPane, 1000, 850));
         primaryStage.show();
+		Game.playGame(primaryStage);
     }
-    public void updateBoard(GridPane gPane) { //Creates visual chessboard and places pieces
+    public void updateBoard(GridPane gPane, Stage s) { //Creates visual chessboard and places pieces
 		Tile[][] board = Board.tileBoard;
     	for(int r=0; r<8; r++) {
     		for(int c=0; c<8; c++) {
@@ -93,13 +94,25 @@ public class ChessGUI extends Application{
     				imv.setFitHeight(95);
     				imv.setFitWidth(95);
     				imv.setOnMouseClicked(e -> {
-    					
+    					Game.setTile(r, c, s);
     				});
     				stack.getChildren().add(imv);
     			}
                 gPane.add(stack, r, c);
     		}
     	}
+    }
+    public void updateLabels() {
+    	boolean whiteTurn = true;
+        Label labels[] = {new Label((whiteTurn ? "White" : "Black") + "'s Move"), 
+        		new Label("White's Points: " + Board.pointsForWhite), 
+        		new Label("Black's Points: " + Board.pointsForBlack)};
+        for(int f=0; f<labels.length; f++) {
+        	GridPane.setHalignment(labels[f], HPos.CENTER);
+        	GridPane.setValignment(labels[f], VPos.CENTER);
+        	labels[f].setFont(new Font("Times New Roman", 20));
+        	gPane.add(labels[f], 8, f);
+        }
     }
     public static void main(String[] args) 
 	{

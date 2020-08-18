@@ -2,48 +2,59 @@ package src;
 
 import java.util.Scanner;
 
+import javafx.scene.control.Label;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+
 public class Game {
-
-	public Game() {
-	}
-
-	public static void playGame() {
-		Board myBoard = new Board();
-		boolean isWhite = true;
+	public static boolean whitesTurn = true, setStart = true;;
+	private static Tile start, end;
+	public static void playGame(Stage stage) {
 		while(Board.whiteAlive && Board.blackAlive) {
-			String currColor = isWhite ? "White" : "Black";
-			System.out.println(currColor + "'s turn, has " + (isWhite ? Board.pointsForWhite : 
-				Board.pointsForBlack) + " points");
 			boolean invalidMove = true;
-			Board.printBoard();
 			while(invalidMove) {
-				Scanner scan = new Scanner(System.in);
-				System.out.println("Please pick starting row position/piece");
-				int startRow = scan.nextInt();
-				System.out.println("Please pick starting column position/piece");
-				int startCol = scan.nextInt();
-				System.out.println("Please pick ending row position/piece");
-				int endRow = scan.nextInt();
-				System.out.println("Please pick ending column position/piece");
-				int endCol = scan.nextInt();
-				Tile start = Board.tileBoard[startRow][startCol], end = Board.tileBoard[endRow]
-						[endCol];
-				Piece myPiece = start.getPiece();
-				if(myPiece != null && myPiece.getColor() == isWhite && myPiece.moveTo(start, end)) {
-					System.out.println("Move completed successfully");
-					invalidMove = false;
-				}
-				else {
-					System.out.println("Error: move invalid");
+				if(start != null && end != null) {
+					Piece myPiece = start.getPiece();
+					if(myPiece.moveTo(start, end)) {
+						invalidMove = false;
+					}
+					else {
+						displayError("End", stage);
+					}
 				}
 			}
-			isWhite = !isWhite;
+			whitesTurn = !whitesTurn;
 		}
 		System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 
 				Board.pointsForWhite + "\nBlack points: " + Board.pointsForBlack);
 	}
-	
-	public static void main(String [] args) {
-		playGame();
+	public static void setTile(int row, int col, Stage s) {
+		if(setStart) {
+			Tile temp = Board.tileBoard[row][col];
+			Piece myPiece = temp.getPiece();
+			if(myPiece != null && myPiece.getColor() == whitesTurn) {
+				start = temp;
+			}
+			else {
+				displayError("Start", s);
+			}
+			setStart = !setStart;
+		}
+		else {
+			end = Board.tileBoard[row][col];
+		}
+	}
+	public static void displayError(String s, Stage stage) {
+		String message = "Error: Invalid " + s + " Tile";
+		Popup bothError = new Popup();
+		bothError.setAutoHide(true);
+		Label bothErrorLabel = new Label(message);
+		bothErrorLabel.setStyle(" -fx-background-color: white; -fx-border-color:black; "
+				+ "-fx-padding:3px;");
+		bothErrorLabel.setTextAlignment(TextAlignment.CENTER);
+		bothErrorLabel.setMinSize(230, 50);
+		bothError.getContent().add(bothErrorLabel);
+		bothError.show(stage);
 	}
 }

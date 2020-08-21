@@ -1,3 +1,7 @@
+package src;
+
+import javafx.application.Application;
+
 public class ThreadHandler extends Thread {
     	private boolean frontend;
     	private String[] args;

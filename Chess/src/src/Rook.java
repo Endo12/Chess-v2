@@ -18,6 +18,11 @@ public class Rook extends Piece {
 			return false;
 		}
 		Tile boardArr[][] = Board.tileBoard;
+		
+		/* KNOWN ISSUE: rook movement doesn't work properly
+		 * 
+		 * */
+		
 		if(diffX) { /*Cycles through X positions and returns false if there's any collisions*/
 			for(int f=Math.min(startX, endX); f<Math.max(startX, endX); f++) {
 				if(boardArr[startY][f].getPiece() != null) {

@@ -32,28 +32,12 @@ import javafx.stage.Stage;
 
 public class ChessGUI extends Application {
 	private GridPane gPane = new GridPane();
-	public boolean whitesTurn = true, setStart = true;;
+	public boolean whitesTurn = true, setStart = true, madeLabels = false;
 	private Tile start, end;
 	private Stage stage;
-	public void playGame() {
-		while(Board.whiteAlive && Board.blackAlive) {
-			boolean invalidMove = true;
-			while(invalidMove) {
-				if(start != null && end != null) {
-					Piece myPiece = start.getPiece();
-					if(myPiece.moveTo(start, end)) {
-						invalidMove = false;
-					}
-					else {
-						displayError("End");
-					}
-				}
-			}
-			whitesTurn = !whitesTurn;
-		}
-		System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 
-				Board.pointsForWhite + "\nBlack points: " + Board.pointsForBlack);
-	}
+	Label labels[] = {new Label((whitesTurn ? "White" : "Black") + "'s Move"), 
+    		new Label("White's Points: " + Board.pointsForWhite), 
+    		new Label("Black's Points: " + Board.pointsForBlack)};
 	public void displayError(String s) {
 		String message = "Error: Invalid " + s + " Tile";
 		Popup bothError = new Popup();
@@ -70,13 +54,12 @@ public class ChessGUI extends Application {
     	Board b = new Board();
     	this.stage = primaryStage;
         updateLabels();
-        updateBoard(gPane, primaryStage);
-        updateLabels();
+        updateBoard(primaryStage);
         primaryStage.setTitle("Chess");
         primaryStage.setScene(new Scene(gPane, 1000, 850));
         primaryStage.show();
     }
-    public void updateBoard(GridPane gPane, Stage s) { //Creates visual chessboard and places pieces
+    public void updateBoard(Stage s) { //Creates visual chessboard and places pieces
 		Tile[][] board = Board.tileBoard;
     	for(int r=0; r<8; r++) {
     		for(int c=0; c<8; c++) {
@@ -142,42 +125,33 @@ public class ChessGUI extends Application {
     	}
     }
     public void updateLabels() {
-    	boolean whiteTurn = true;
-        Label labels[] = {new Label((whiteTurn ? "White" : "Black") + "'s Move"), 
-        		new Label("White's Points: " + Board.pointsForWhite), 
-        		new Label("Black's Points: " + Board.pointsForBlack)};
-        for(int f=0; f<labels.length; f++) {
-        	GridPane.setHalignment(labels[f], HPos.CENTER);
-        	GridPane.setValignment(labels[f], VPos.CENTER);
-        	labels[f].setFont(new Font("Times New Roman", 20));
-        	gPane.add(labels[f], 8, f);
-        }
+    	if(!madeLabels) {
+            for(int f=0; f<labels.length; f++) {
+            	GridPane.setHalignment(labels[f], HPos.CENTER);
+            	GridPane.setValignment(labels[f], VPos.CENTER);
+            	labels[f].setFont(new Font("Times New Roman", 20));
+            	gPane.add(labels[f], 8, f);
+            }
+            madeLabels = true;
+    	}
+    	else {
+    		labels[0].setText((whitesTurn ? "White" : "Black") + "'s Move");
+    		labels[1].setText("White's Points: " + Board.pointsForWhite);
+    		labels[2].setText("Black's Points: " + Board.pointsForBlack);
+    	}
+        
     }
-    public static void main(String[] args) 
-	{
-    	Thread threads[] = new Thread[2];
-    	threads[0] = new ThreadHandler(true, args, null);
-    	threads[1] = new ThreadHandler(false, null, new ChessGUI());
-    	for(Thread t: threads) {
-    		t.start();
-    	}
-    	for(Thread t: threads) {
-    		try {
-				t.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+    public static void main(String[] args) {
+    	Application.launch(args);
 	}
     private class MoveHandler implements EventHandler<MouseEvent> {
 		private int row, col;
-		public MoveHandler(int row, int col) {
+		public MoveHandler(int col, int row) {
 			this.row = row;
 			this.col = col;
 		}
     	@Override
-		public void handle(MouseEvent arg0) {
+		public void handle(MouseEvent arg0) { //note: rook movement doesn't work
     		if(setStart) {
     			Tile temp = Board.tileBoard[row][col];
     			Piece myPiece = temp.getPiece();
@@ -187,14 +161,31 @@ public class ChessGUI extends Application {
     			else {
     				displayError("Start");
     			}
-    			setStart = !setStart;
     		}
     		else {
     			end = Board.tileBoard[row][col];
     		}
+			setStart = !setStart;
+    		if(start != null && end != null) {
+				Piece myPiece = start.getPiece();
+				if(myPiece.moveTo(start, end)) {
+					updateBoard(stage);
+					whitesTurn = !whitesTurn;
+					updateLabels();
+				}
+				else {
+					displayError("End");
+				}
+				start = null;
+				end = null;
+			}
+    		if(Board.whiteAlive != Board.blackAlive) {
+    			System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 
+    				Board.pointsForWhite + "\nBlack points: " + Board.pointsForBlack);
+    			System.exit(0);
+    		}
 		}
     }
-    
 }
 
 

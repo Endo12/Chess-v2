@@ -19,8 +19,8 @@ public class Rook extends Piece {
 		}
 		Tile boardArr[][] = Board.tileBoard;
 		
-		/* KNOWN ISSUE: rook movement doesn't work properly
-		 * 
+		/* KNOWN ISSUE: rook movement doesn't work properly bc it looks at starting tile as the 
+		 * tile the rook is on
 		 * */
 		
 		if(diffX) { /*Cycles through X positions and returns false if there's any collisions*/

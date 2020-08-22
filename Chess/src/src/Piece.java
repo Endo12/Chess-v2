@@ -32,8 +32,27 @@ public abstract class Piece {
 				}
 				captured = null;
 			}
+			
 			end.setPiece(this);
 			start.setPiece(null);
+			
+			/**
+			 * Here we check to see if promotion of a pawn is necessary as a result of 
+			 * the piece's movement. We then change the type of piece to Q, Knight, or R. 
+			**/
+			String id = this.toString(); 
+			if (id.substring(1,2).equals("P")) { //check to see if this is a pawn
+				if (this.canPromote(end)) {
+					BorderPane borderPane = new BorderPane(); 
+ 					Scene promoPage = new Scene(borderPane, 300, 300); 
+ 					Stage stage2 = new Stage();
+					stage2.setScene(promoPage); 	
+					stage2.show();
+				}
+			}
+			
+			
+			
 			return true;
 		}
 		else {
@@ -45,6 +64,10 @@ public abstract class Piece {
 	}
 	public boolean isKing() {
 		return false;
+	}
+	
+	public boolean canPromote(Tile location) {
+		return false; 
 	}
 	public abstract String toString();
 }

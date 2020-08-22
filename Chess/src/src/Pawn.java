@@ -10,26 +10,33 @@ public class Pawn extends Piece {
 		if (!start.equals(end)) { //check that start and end are not the same tile 
 			if (this.getColor()) { // a forward move for white is +1 in y direction, right is +1 in x
 				if (((end.getY() == start.getY() + 2 && start.getY() == 1) || end.getY() == start.getY() + 1)
-				    && end.getPiece() == null) { //if forward, it must not occupied by ANY piece
+				    && start.getX() == end.getX() && end.getPiece() == null) { 
+					//if forward, it must not occupied by ANY piece
 					
 					return true; 
 				}
 				//piece tries forward one, and left one/right one (diagonal)
-				else if (end.getY() == start.getY() + 1 && (end.getX() == start.getX() - 1 || end.getX() == start.getX() + 1) 
-						&& !end.getPiece().getColor()) { //if diagional, it must be occupied by black piece
+				else if (end.getPiece() != null && !end.getPiece().getColor() &&
+						end.getY() == start.getY() + 1 && 
+						(end.getX() == start.getX() - 1 || end.getX() == start.getX() + 1)) { 
+					//if diagonal, it must be occupied by black piece
 					return true; 
-				} else {
+				} 
+				else {
 					return false; 
 				}
 			} 
 			else { //confirmed black pawn, whose "forward" is -1 in y and whose right is -1 in x 
 				if (((end.getY() == start.getY() - 2 && start.getY() == 6) || end.getY() == start.getY() - 1) 
-				    && end.getPiece() == null) { //if forward, it must not occupied by ANY piece
+				    && start.getX() == end.getX() && end.getPiece() == null) { 
+					//if forward, it must not occupied by ANY piece
 					return true; 
 				}
-				else if (end.getY() == start.getY() - 1 && (end.getX() == start.getX() + 1 || end.getX() == start.getX() - 1) //piece tries forward one, and left one/right one (diagonal)
-					&& end.getPiece().getColor()) { 
-					//if diagional, it must be occupied by WHITE piece
+				//piece tries forward one, and left one/right one (diagonal)
+				else if (end.getPiece() != null && end.getPiece().getColor() &&
+						end.getY() == start.getY() - 1 && 
+						(end.getX() == start.getX() + 1 || end.getX() == start.getX() - 1)) { 
+					//if diagonal, it must be occupied by WHITE piece
 					return true; 
 				} 
 				else {

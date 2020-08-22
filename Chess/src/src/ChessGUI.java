@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,6 +36,7 @@ public class ChessGUI extends Application {
 	public boolean whitesTurn = true, setStart = true, madeLabels = false;
 	private Tile start, end;
 	private Stage stage;
+	private ColorAdjust filter = new ColorAdjust(1, 1, .5, -.5);
 	Label labels[] = {new Label("White's Move"), 
 			new Label("Select Start Tile"),
     		new Label("White's Points: 0"), 
@@ -55,75 +57,81 @@ public class ChessGUI extends Application {
     	Board b = new Board();
     	this.stage = primaryStage;
         updateLabels();
-        updateBoard(primaryStage);
+        updateBoard();
         primaryStage.setTitle("Chess");
         primaryStage.setScene(new Scene(gPane, 1000, 850));
         primaryStage.show();
     }
-    public void updateBoard(Stage s) { //Creates visual chessboard and places pieces
+    public void updateBoard() { //Creates visual chessboard and places pieces
 		Tile[][] board = Board.tileBoard;
     	for(int r=0; r<8; r++) {
     		for(int c=0; c<8; c++) {
-    			Rectangle tile = new Rectangle();
-                Color color = r % 2 == c % 2 ? Color.WHITE : Color.DARKGRAY;
-                tile.setFill(color);
-                tile.widthProperty().bind(gPane.widthProperty().divide(8).subtract(20));
-                tile.heightProperty().bind(gPane.heightProperty().divide(8));
-                tile.setStroke(Color.BLACK);
-                tile.setStrokeWidth(1.5);
-                tile.setOnMouseClicked(new MoveHandler(r,c));
-                StackPane stack = new StackPane();
-                stack.getChildren().add(tile);
-    			Piece p = board[c][r].getPiece();
-    			if(p != null) {
-    				String link = "https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/", 
-    						pStr = p.toString();
-    				if(pStr.equals("WP")) {
-    					link += "wpawn";	
-    				}
-    				else if(pStr.equals("BP")) {
-    					link += "bpawn";
-    				}
-    				else if(pStr.equals("WKn")) {
-    					link += "wknight";	
-    				}
-    				else if(pStr.equals("BKn")) {
-    					link += "bknight";
-    				}
-    				else if(pStr.equals("WR")) {
-    					link += "wrook";	
-    				}
-    				else if(pStr.equals("BR")) {
-    					link += "brook";
-    				}
-    				else if(pStr.equals("WB")) {
-    					link += "wbishop";	
-    				}
-    				else if(pStr.equals("BB")) {
-    					link += "bbishop";
-    				}
-    				else if(pStr.equals("WKi")) {
-    					link += "wking";	
-    				}
-    				else if(pStr.equals("BKi")) {
-    					link += "bking";
-    				}
-    				else if(pStr.equals("WQ")) {
-    					link += "wqueen";	
-    				}
-    				else if(pStr.equals("BQ")) {
-    					link += "bqueen";
-    				}
-    				link += ".png";
-    				ImageView imv = new ImageView(new Image(link));
-    				imv.setFitHeight(95);
-    				imv.setFitWidth(95);
-    				imv.setOnMouseClicked(new MoveHandler(r,c));
-    				stack.getChildren().add(imv);
-    			}
-                gPane.add(stack, r, c);
+    			updateTile(board, r, c);
     		}
     	}
+    }
+    public void updateTile(Tile[][] board, int r, int c) {
+    	Rectangle tile = new Rectangle();
+        Color color = r % 2 == c % 2 ? Color.WHITE : Color.DARKGRAY;
+        tile.setFill(color);
+        tile.widthProperty().bind(gPane.widthProperty().divide(8).subtract(20));
+        tile.heightProperty().bind(gPane.heightProperty().divide(8));
+        tile.setStroke(Color.BLACK);
+        tile.setStrokeWidth(1.5);
+        tile.setOnMouseClicked(new MoveHandler(r,c));
+        StackPane stack = new StackPane();
+        stack.getChildren().add(tile);
+		Piece p = board[c][r].getPiece();
+		if(p != null) {
+			String link = "https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/", 
+					pStr = p.toString();
+			if(pStr.equals("WP")) {
+				link += "wpawn";	
+			}
+			else if(pStr.equals("BP")) {
+				link += "bpawn";
+			}
+			else if(pStr.equals("WKn")) {
+				link += "wknight";	
+			}
+			else if(pStr.equals("BKn")) {
+				link += "bknight";
+			}
+			else if(pStr.equals("WR")) {
+				link += "wrook";	
+			}
+			else if(pStr.equals("BR")) {
+				link += "brook";
+			}
+			else if(pStr.equals("WB")) {
+				link += "wbishop";	
+			}
+			else if(pStr.equals("BB")) {
+				link += "bbishop";
+			}
+			else if(pStr.equals("WKi")) {
+				link += "wking";	
+			}
+			else if(pStr.equals("BKi")) {
+				link += "bking";
+			}
+			else if(pStr.equals("WQ")) {
+				link += "wqueen";	
+			}
+			else if(pStr.equals("BQ")) {
+				link += "bqueen";
+			}
+			link += ".png";
+			ImageView imv = new ImageView(new Image(link));
+			imv.setFitHeight(95);
+			imv.setFitWidth(95);
+			imv.setOnMouseClicked(new MoveHandler(r,c));
+			if(start != null && start.getX() == r && start.getY() == c) {
+				imv.setEffect(filter);
+			}
+			stack.getChildren().add(imv);
+		}
+        gPane.add(stack, r, c);
     }
     public void updateLabels() {
     	if(!madeLabels) {
@@ -160,6 +168,7 @@ public class ChessGUI extends Application {
     			if(myPiece != null && myPiece.getColor() == whitesTurn) {
     				start = temp;
     				setStart = !setStart;
+    				updateTile(Board.tileBoard, start.getX(), start.getY());
     			}
     			else {
     				displayError("Start");
@@ -168,19 +177,21 @@ public class ChessGUI extends Application {
     		else {
     			end = Board.tileBoard[row][col];
     			setStart = !setStart;
-    		}
-    		if(start != null && end != null) {
 				Piece myPiece = start.getPiece();
 				if(myPiece.moveTo(start, end)) {
-					updateBoard(stage);
 					whitesTurn = !whitesTurn;
 				}
 				else {
 					displayError("End");
 				}
+				int startX = start.getX(), startY = start.getY(), endX = end.getX(), endY = end.getY();
 				start = null;
 				end = null;
+				updateTile(Board.tileBoard, startX, startY);
+				updateTile(Board.tileBoard, endX, endY);
+				
 			}
+			//updateBoard();
     		updateLabels();
     		if(Board.whiteAlive != Board.blackAlive) {
     			System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 

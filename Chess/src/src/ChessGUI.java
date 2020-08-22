@@ -35,9 +35,10 @@ public class ChessGUI extends Application {
 	public boolean whitesTurn = true, setStart = true, madeLabels = false;
 	private Tile start, end;
 	private Stage stage;
-	Label labels[] = {new Label((whitesTurn ? "White" : "Black") + "'s Move"), 
-    		new Label("White's Points: " + Board.pointsForWhite), 
-    		new Label("Black's Points: " + Board.pointsForBlack)};
+	Label labels[] = {new Label("White's Move"), 
+			new Label("Select Start Tile"),
+    		new Label("White's Points: 0"), 
+    		new Label("Black's Points: 0")};
 	public void displayError(String s) {
 		String message = "Error: Invalid " + s + " Tile";
 		Popup bothError = new Popup();
@@ -136,8 +137,9 @@ public class ChessGUI extends Application {
     	}
     	else {
     		labels[0].setText((whitesTurn ? "White" : "Black") + "'s Move");
-    		labels[1].setText("White's Points: " + Board.pointsForWhite);
-    		labels[2].setText("Black's Points: " + Board.pointsForBlack);
+    		labels[1].setText("Select " + (setStart ? "Start" : "End") + " Tile");
+    		labels[2].setText("White's Points: " + Board.pointsForWhite);
+    		labels[3].setText("Black's Points: " + Board.pointsForBlack);
     	}
         
     }
@@ -157,6 +159,7 @@ public class ChessGUI extends Application {
     			Piece myPiece = temp.getPiece();
     			if(myPiece != null && myPiece.getColor() == whitesTurn) {
     				start = temp;
+    				setStart = !setStart;
     			}
     			else {
     				displayError("Start");
@@ -164,14 +167,13 @@ public class ChessGUI extends Application {
     		}
     		else {
     			end = Board.tileBoard[row][col];
+    			setStart = !setStart;
     		}
-			setStart = !setStart;
     		if(start != null && end != null) {
 				Piece myPiece = start.getPiece();
 				if(myPiece.moveTo(start, end)) {
 					updateBoard(stage);
 					whitesTurn = !whitesTurn;
-					updateLabels();
 				}
 				else {
 					displayError("End");
@@ -179,6 +181,7 @@ public class ChessGUI extends Application {
 				start = null;
 				end = null;
 			}
+    		updateLabels();
     		if(Board.whiteAlive != Board.blackAlive) {
     			System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 
     				Board.pointsForWhite + "\nBlack points: " + Board.pointsForBlack);

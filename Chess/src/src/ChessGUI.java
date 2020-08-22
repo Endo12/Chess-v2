@@ -151,7 +151,7 @@ public class ChessGUI extends Application {
 			this.col = col;
 		}
     	@Override
-		public void handle(MouseEvent arg0) { //note: rook movement doesn't work
+		public void handle(MouseEvent arg0) {
     		if(setStart) {
     			Tile temp = Board.tileBoard[row][col];
     			Piece myPiece = temp.getPiece();

@@ -18,20 +18,15 @@ public class Rook extends Piece {
 			return false;
 		}
 		Tile boardArr[][] = Board.tileBoard;
-		
-		/* KNOWN ISSUE: rook movement doesn't work properly bc it looks at starting tile as the 
-		 * tile the rook is on
-		 * */
-		
 		if(diffX) { /*Cycles through X positions and returns false if there's any collisions*/
-			for(int f=Math.min(startX, endX); f<Math.max(startX, endX); f++) {
+			for(int f=Math.min(startX, endX) + 1; f<Math.max(startX, endX); f++) {
 				if(boardArr[startY][f].getPiece() != null) {
 					return false;
 				}
 			}
 		}
 		else { /*Same as above, but with Y positions*/
-			for(int f=Math.min(startY, endY); f<Math.max(startY, endY); f++) {
+			for(int f=Math.min(startY, endY) + 1; f<Math.max(startY, endY); f++) {
 				if(boardArr[f][startX].getPiece() != null) {
 					return false;
 				}

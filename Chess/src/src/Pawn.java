@@ -38,7 +38,20 @@ public class Pawn extends Piece {
 			return false;  
 		}
 	}
-
+	
+	public boolean canPromote(Tile location) {
+		if (isWhite) {
+			if (location.getY() == 7) {
+				return true; 	
+			}
+		} else {
+			if (location.getY == 0) {
+				return true; 	
+			}
+		}
+		return false; 
+	}
+	
 	@Override
 	public String toString() {
 		return (this.getColor() ? "W" : "B") + "P";

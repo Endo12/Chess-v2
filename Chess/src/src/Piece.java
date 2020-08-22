@@ -43,11 +43,60 @@ public abstract class Piece {
 			String id = this.toString(); 
 			if (id.substring(1,2).equals("P")) { //check to see if this is a pawn
 				if (this.canPromote(end)) {
-					BorderPane borderPane = new BorderPane(); 
- 					Scene promoPage = new Scene(borderPane, 300, 300); 
- 					Stage stage2 = new Stage();
-					stage2.setScene(promoPage); 	
-					stage2.show();
+					Scene scene2 = new Scene(); 
+					Stage stage2 = new Stage(); 
+					Popup promoPage = new Popup();
+					promoPage.setAutoHide(true);
+					
+					//buttons for each option
+					Button queen = new Button(); 
+					Button bishop = new Button(); 
+					Button rook = new Button(); 
+					Image qImg, bImg, rImg;
+					if (this.isWhite) {
+						qImg = new Image("https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wqueen");
+						bImg = new Image("https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wbishop");
+						rImg = new Image("https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/wrook"); 
+					} else {
+						qImg = new Image("https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/bqueen");
+						bImg = new Image("https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/bbishop");
+						rImg = new Image("https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/brook"); 
+					}
+					ImageView qView = new ImageView(qImg); 
+					IamgeView bView = new IamgeView(bImg);
+					ImageView rView = new ImageView(rImg); 
+					
+					queen.setGraphic(qView); 
+					bishop.setGraphic(bView); 
+					rook.setGraphic(rView); 
+					
+					//if pressed, change to queen... close window
+					queen.setOnAction(new EventHandler<ActionEvent>() {
+    						@Override public void handle(ActionEvent e) {
+        						end.setPiece(new Queen(this.isWhite)); 
+							promoPage.close();
+    						}
+					});
+					//if pressed, change to bishop...close window
+					queen.setOnAction(new EventHandler<ActionEvent>() {
+    						@Override public void handle(ActionEvent e) {
+        						end.setPiece(new Bishop(this.isWhite)); 
+							promoPage.close(); 
+    						}
+					});
+					//if pressed, change to rook...close window
+					queen.setOnAction(new EventHandler<ActionEvent>() {
+    						@Override public void handle(ActionEvent e) {
+        						end.setPiece(new Rook(this.isWhite)); 
+							promoPage.close(); 
+							
+    						}
+					});
+					promoPage.getContent.addAll(queen, bishop, rook);
+					promoPage.setAllignment(Pos.CENTER); 
+					stage2.show(); 
+					promoPage.show(stage2); 
+					
 				}
 			}
 			

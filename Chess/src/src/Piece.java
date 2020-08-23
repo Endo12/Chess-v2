@@ -1,5 +1,16 @@
 package src;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+
 public abstract class Piece {
 	private boolean isWhite, isAlive; //maybe get rid of isAlive?
 	private int points;
@@ -41,13 +52,10 @@ public abstract class Piece {
 			 * the piece's movement. We then change the type of piece to Q, Knight, or R. 
 			**/
 			String id = this.toString(); 
-			if (id.substring(1,2).equals("P")) { //check to see if this is a pawn
-				if (this.canPromote(end)) {
-					Scene scene2 = new Scene(); 
-					Stage stage2 = new Stage(); 
-					Popup promoPage = new Popup();
-					promoPage.setAutoHide(true);
-					
+			if (id.substring(1,2).equals("P") && this.canPromote(end)) { //check to see if this is a pawn
+					end.setPiece(new Queen(isWhite));
+					/*Popup promoPage = new Popup();
+					promoPage.setAutoHide(true);					
 					//buttons for each option
 					Button queen = new Button(); 
 					Button bishop = new Button(); 
@@ -63,45 +71,42 @@ public abstract class Piece {
 						rImg = new Image("https://raw.githubusercontent.com/jlundstedt/chess-java/master/resources/brook"); 
 					}
 					ImageView qView = new ImageView(qImg); 
-					IamgeView bView = new IamgeView(bImg);
+					ImageView bView = new ImageView(bImg);
 					ImageView rView = new ImageView(rImg); 
 					
 					queen.setGraphic(qView); 
 					bishop.setGraphic(bView); 
 					rook.setGraphic(rView); 
 					
+					queen.setMinSize(100, 100);
+					bishop.setMinSize(100, 100);
+					rook.setMinSize(100, 100);
 					//if pressed, change to queen... close window
 					queen.setOnAction(new EventHandler<ActionEvent>() {
     						@Override public void handle(ActionEvent e) {
-        						end.setPiece(new Queen(this.isWhite)); 
-							promoPage.close();
+        						end.setPiece(new Queen(isWhite)); 
+        						promoPage.hide();
+        						//ChessGUI.stage.close();
     						}
 					});
 					//if pressed, change to bishop...close window
 					queen.setOnAction(new EventHandler<ActionEvent>() {
     						@Override public void handle(ActionEvent e) {
-        						end.setPiece(new Bishop(this.isWhite)); 
-							promoPage.close(); 
+        						end.setPiece(new Bishop(isWhite)); 
+        						promoPage.hide();
     						}
 					});
 					//if pressed, change to rook...close window
 					queen.setOnAction(new EventHandler<ActionEvent>() {
     						@Override public void handle(ActionEvent e) {
-        						end.setPiece(new Rook(this.isWhite)); 
-							promoPage.close(); 
-							
+        						end.setPiece(new Rook(isWhite)); 
+        						promoPage.hide();
     						}
 					});
-					promoPage.getContent.addAll(queen, bishop, rook);
-					promoPage.setAllignment(Pos.CENTER); 
-					stage2.show(); 
-					promoPage.show(stage2); 
-					
-				}
+					promoPage.getContent().addAll(queen, bishop, rook);
+					//promoPage.setAllignment(Pos.CENTER); 
+					promoPage.show(ChessGUI.stage);*/ 
 			}
-			
-			
-			
 			return true;
 		}
 		else {

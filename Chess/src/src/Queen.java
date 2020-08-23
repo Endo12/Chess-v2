@@ -17,14 +17,14 @@ public class Queen extends Piece {
 					diffX = Math.abs(start.getX() - end.getX()), diffY = Math.abs(start.getY() - end.getY()); 
 			if(diffX == 0 && diffY != 0) { /*Cycles through X positions and returns false if there's 
 				any collisions*/
-				for(int f=Math.min(currX, endX); f<Math.max(currX, endX); f++) {
+				for(int f=Math.min(currX, endX) + 1; f<Math.max(currX, endX); f++) {
 					if(boardArr[currY][f].getPiece() != null) {
 						return false;
 					}
 				}
 			}
 			else if(diffX != 0 && diffY == 0) { /*Same as above, but with Y positions*/
-				for(int f=Math.min(currY, endY); f<Math.max(currY, endY); f++) {
+				for(int f=Math.min(currY, endY) + 1; f<Math.max(currY, endY); f++) {
 					if(boardArr[f][currX].getPiece() != null) {
 						return false;
 					}

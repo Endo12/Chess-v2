@@ -32,10 +32,11 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class ChessGUI extends Application {
-	private GridPane gPane = new GridPane();
+	public static GridPane gPane = new GridPane();
 	public boolean whitesTurn = true, setStart = true, madeLabels = false;
 	private Tile start, end;
-	private Stage stage;
+	public static Stage stage;
+	private static Scene scene;
 	private ColorAdjust filter = new ColorAdjust(1, 1, .5, -.5);
 	Label labels[] = {new Label("White's Move"), 
 			new Label("Select Start Tile"),
@@ -55,11 +56,12 @@ public class ChessGUI extends Application {
 	}
     public void start(Stage primaryStage) {
     	Board b = new Board();
-    	this.stage = primaryStage;
+    	ChessGUI.stage = primaryStage;
         updateLabels();
         updateBoard();
         primaryStage.setTitle("Chess");
-        primaryStage.setScene(new Scene(gPane, 1000, 850));
+        ChessGUI.scene = new Scene(gPane, 1000, 850);
+        primaryStage.setScene(ChessGUI.scene);
         primaryStage.show();
     }
     public void updateBoard() { //Creates visual chessboard and places pieces

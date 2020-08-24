@@ -34,7 +34,9 @@ public class King extends Piece {
 				return true; //the move does not put the king in check, and it is otherwise allowed
 			}
 		}
-		else if(this.getColor() ? Board.whiteKCastle : Board.blackKCastle && )
+		else if(this.getColor() ? 
+				Board.whiteKCastle : 
+				Board.blackKCastle && )
 		return false; // move was not legal in terms of direction/# of tiles	
 	}
 	

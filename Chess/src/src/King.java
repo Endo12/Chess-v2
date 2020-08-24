@@ -32,6 +32,21 @@ public class King extends Piece {
 	public boolean isKing() {
 		return true;
 	}
+	
+	public boolean isInCheck(Tile kingTile) {
+		Tile[][] tiles = Board.tileBoard; 
+		for(Tile[] r: tileRows) {
+			for(Tile t: tile) {
+				Piece enemy = t.getPiece();
+				if (enemy != null && enemy.getColor() != this.getColor()) {
+					if enemy.canMove(t, kingTile) {
+						return true; 	
+					}
+				}
+			}
+		}
+		return false; 
+	}
 
 	@Override
 	public String toString() {

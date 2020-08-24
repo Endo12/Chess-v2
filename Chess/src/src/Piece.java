@@ -113,6 +113,10 @@ public abstract class Piece {
 			return false;
 		}
 	}
+	
+	public boolean checkingPiece() { //a piece is a checking piece if it has the enemy king in check 
+		return false; 
+	}
 	public boolean getColor() {
 		return isWhite;
 	}

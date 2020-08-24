@@ -182,17 +182,17 @@ public class ChessGUI extends Application {
 					} // The tile of the current player's king is in allyKingTile 
 				}
 			}
-			allyKing = t.getPiece(); // current player's king
-			if (allyKing.isInCheck()) {
-				if (noMoves) {
-					checkmate; //GAME ENDS	
-				} else {
-					check; 	
-				}
-			} else if (noMoves) {
-				stalemate; //GAME ENDS
+// 			allyKing = t.getPiece(); // current player's king
+// 			if (allyKing.isInCheck()) {
+// 				if (noMoves) {
+// 					checkmate; //GAME ENDS
+// 				} else {
+// 					check; 	
+// 				}
+// 			} else if (noMoves) {
+// 				stalemate; //GAME ENDS
 				
-			}
+// 			}
 				
 			
     			Tile temp = Board.tileBoard[row][col];

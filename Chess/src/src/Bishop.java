@@ -31,6 +31,24 @@ public class Bishop extends Piece {
 		}  
 	}
 
+	
+	@Override
+	public boolean checkingPiece(Tile start) {
+		Board[][] board = Board.tileBoard; 
+			for(Tile[] row: board) {
+				for(Tile t: row) {
+					if (t.getPiece() != null && t.getPiece() instanceof King && t.getPiece().getColor() != this.getColor()) { //its an enemy king
+						if (canMove(start, t)) {
+							return true;	
+						}
+						return false;
+					}
+				}
+			}
+		return false; 	
+	}
+	
+	
 	@Override
 	public String toString() {
 		return (this.getColor() ? "W" : "B") + "B";

@@ -128,4 +128,5 @@ public abstract class Piece {
 		return false; 
 	}
 	public abstract String toString();
+	public abstract boolean checkingPiece(Tile start);
 }

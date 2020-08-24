@@ -63,4 +63,10 @@ public class King extends Piece {
 	public String toString() {
 		return (this.getColor() ? "W" : "B") + "Ki";
 	}
+
+	@Override
+	public boolean checkingPiece(Tile start) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

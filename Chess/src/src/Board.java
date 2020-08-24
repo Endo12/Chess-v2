@@ -3,7 +3,8 @@ package src;
 public class Board {
 	public static Tile[][] tileBoard = new Tile[8][8];
 	public static int pointsForWhite = 0, pointsForBlack = 0; 
-	public static boolean whiteAlive = true, blackAlive = true;
+	public static boolean whiteAlive = true, blackAlive = true, whiteKCastle = true, whiteQCastle = true,
+		blackKCastle = true, blackQCastle = true;
   
 	public Board() {
 		for(int i= 0; i < 8; i++) { //create pawns 

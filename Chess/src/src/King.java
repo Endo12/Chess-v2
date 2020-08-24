@@ -23,9 +23,18 @@ public class King extends Piece {
 						}
 					}
 				} 
+				if(this.getColor()) {
+					Board.whiteKCastle = false;
+					Board.whiteQCastle = false;
+				}
+				else {
+					Board.blackKCastle = false;
+					Board.blackQCastle = false;
+				}
 				return true; //the move does not put the king in check, and it is otherwise allowed
-			}	
-		}	
+			}
+		}
+		else if(this.getColor() ? Board.whiteKCastle : Board.blackKCastle && )
 		return false; // move was not legal in terms of direction/# of tiles	
 	}
 	

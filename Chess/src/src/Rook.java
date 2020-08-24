@@ -2,8 +2,11 @@ package src;
 
 public class Rook extends Piece {
 
+	private boolean castleCheck;
+	
 	public Rook(boolean isWhite) {
 		super(isWhite, 5);
+		castleCheck = true;
 	}
 
 	@Override
@@ -31,6 +34,25 @@ public class Rook extends Piece {
 					return false;
 				}
 			}
+		}
+		if(castleCheck) {
+			if(this.getColor()) {
+				if(start.getX() == 0) {
+					Board.whiteQCastle = false;
+				}
+				else {
+					Board.whiteKCastle = false;
+				}
+			}
+			else {
+				if(start.getX() == 0) {
+					Board.blackQCastle = false;
+				}
+				else {
+					Board.blackKCastle = false;
+				}
+			}
+			castleCheck = false;
 		}
 		return true;
 	}

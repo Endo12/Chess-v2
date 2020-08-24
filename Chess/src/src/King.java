@@ -35,11 +35,11 @@ public class King extends Piece {
 	
 	public boolean isInCheck(Tile kingTile) {
 		Tile[][] tiles = Board.tileBoard; 
-		for(Tile[] r: tileRows) {
-			for(Tile t: tile) {
+		for(Tile[] r: tiles) {
+			for(Tile t: r) {
 				Piece enemy = t.getPiece();
 				if (enemy != null && enemy.getColor() != this.getColor()) {
-					if enemy.canMove(t, kingTile) {
+					if(enemy.canMove(t, kingTile)) {
 						return true; 	
 					}
 				}

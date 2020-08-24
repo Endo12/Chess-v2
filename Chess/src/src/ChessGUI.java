@@ -165,6 +165,36 @@ public class ChessGUI extends Application {
     	@Override
 		public void handle(MouseEvent arg0) {
     		if(setStart) {
+			Tile[][] board = Board.TileBoard; 
+			Tile allyKingTile; 
+			for(Tile[] row: board) {
+				for(Tile t: row) {
+					if (t.getPiece() != null && t.getPiece() instanceof King) { //its a king
+						if (whitesTurn) {//if it's whites turn, locate white king
+							if (t.getPiece().getColor) {
+								allyKingTile = t; //current player's king tile 
+							}
+						} else { //else locate black king
+							if (!t.getPiece().getColor()) {
+								allyKingTile = t; //current players king tile 
+							}
+						}	
+					} // The tile of the current player's king is in allyKingTile 
+				}
+			}
+			allyKing = t.getPiece(); // current player's king
+			if (allyKing.isInCheck()) {
+				if (noMoves) {
+					checkmate; //GAME ENDS	
+				} else {
+					check; 	
+				}
+			} else if (noMoves) {
+				stalemate; //GAME ENDS
+				
+			}
+				
+			
     			Tile temp = Board.tileBoard[row][col];
     			Piece myPiece = temp.getPiece();
     			if(myPiece != null && myPiece.getColor() == whitesTurn) {

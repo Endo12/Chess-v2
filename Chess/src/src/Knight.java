@@ -16,6 +16,17 @@ public class Knight extends Piece {
 		} 
 		return false; 
 	}
+	
+	@Override
+	public boolean checkingPiece(Tile start) {
+		Board[][] board = Board.tileBoard; 
+		if (canMove(start, kingLocation)){
+			return true;	
+		} else {
+			return false;	
+		}
+		
+	}
 
 	@Override
 	public String toString() {

@@ -165,13 +165,13 @@ public class ChessGUI extends Application {
     	@Override
 		public void handle(MouseEvent arg0) {
     		if(setStart) {
-			Tile[][] board = Board.TileBoard; 
+			Tile[][] board = Board.tileBoard; 
 			Tile allyKingTile; 
 			for(Tile[] row: board) {
 				for(Tile t: row) {
 					if (t.getPiece() != null && t.getPiece() instanceof King) { //its a king
 						if (whitesTurn) {//if it's whites turn, locate white king
-							if (t.getPiece().getColor) {
+							if (t.getPiece().getColor()) {
 								allyKingTile = t; //current player's king tile 
 							}
 						} else { //else locate black king

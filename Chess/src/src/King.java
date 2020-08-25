@@ -34,9 +34,62 @@ public class King extends Piece {
 				return true; //the move does not put the king in check, and it is otherwise allowed
 			}
 		}
-		else if(this.getColor() ? 
-				Board.whiteKCastle : 
-				Board.blackKCastle && )
+		else if(diffX == 2 && diffY == 0 && this.getColor() ? Board.whiteKCastle || 
+			Board.whiteQCastle : Board.blackKCastle || Board.blackQCastle) {
+			int row = this.getColor() ? 0 : 7;
+			Tile[][] board = Board.tileBoard;
+			if(start.getX() > end.getX() && (this.getColor() ? Board.whiteQCastle :
+				Board.blackQCastle)) { //Queen castle
+				for(int f = 2; f < 5; f++) {
+					if(isInCheck(board[row][f])) {
+						return false;
+					}
+				}
+				for(int g = 1; g < 4; g++) {
+					if(board[row][g].getPiece() != null) {
+						return false;
+					}
+				}
+				if(this.getColor()) {
+					Board.whiteKCastle = false;
+					Board.whiteQCastle = false;
+				}
+				else {
+					Board.blackKCastle = false;
+					Board.blackQCastle = false;
+				}
+				board[row][0].setPiece(null);
+				board[row][2].setPiece(new Rook(this.getColor()));
+				return true;
+			}
+			else if(start.getX() < end.getX() && (this.getColor() ? Board.whiteKCastle : 
+				Board.blackKCastle)) { //King Castle
+				for(int f = 4; f < 7; f++) {
+					if(isInCheck(board[row][f])) {
+						return false;
+					}
+				}
+				for(int g = 5; g < 7; g++) {
+					if(board[row][g].getPiece() != null) {
+						return false;
+					}
+				}
+				if(this.getColor()) {
+					Board.whiteKCastle = false;
+					Board.whiteQCastle = false;
+				}
+				else {
+					Board.blackKCastle = false;
+					Board.blackQCastle = false;
+				}
+				board[row][7].setPiece(null);
+				board[row][5].setPiece(new Rook(this.getColor()));
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 		return false; // move was not legal in terms of direction/# of tiles	
 	}
 	

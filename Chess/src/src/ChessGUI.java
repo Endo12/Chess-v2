@@ -184,13 +184,15 @@ public class ChessGUI extends Application {
 			}
 // 			allyKing = t.getPiece(); // current player's king
 // 			if (allyKing.isInCheck()) {
-// 				if (noMoves) {
+// 				if (kingCantMove && noBlock && noCapture) {
 // 					checkmate; //GAME ENDS
 // 				} else {
 // 					check; 	
 // 				}
-// 			} else if (noMoves) {
+// 			} else if (NoPieceCanMove) {
 // 				stalemate; //GAME ENDS
+				//for each piece, use canMove only on enemy/unoocupied tiles
+				//global boolean
 				
 // 			}
 				

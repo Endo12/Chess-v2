@@ -51,7 +51,8 @@ public class Bishop extends Piece {
 	@Override
 	public Tile[] getPath(Tile start, Tile end, Tile[][] tileBoard) {
 		Tile[] path = new Tile[8];
-		int tileCount = 0; 
+		int tileCount = 0;
+		tempX = start.getX(), tempY = start.getY();
 		if (canMove(start, end)) {
 	    		while (tempX != end.getX() && tempY != end.getY()) { //check each tile in the diagonal for a collision before the end is reached
 	    			tempX += start.getX() < end.getX() ? 1 : -1; //changes X for diagonal

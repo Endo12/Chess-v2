@@ -54,6 +54,40 @@ public class Queen extends Piece {
 	}
 	
 	@Override
+	public Tile[] getPath(Tile start, Tile end, Tile[][] tileBoard) {
+		if (canMove(start, end)) {
+			Tile toAdd; 
+			Tile[] path = new Tile[8]; 
+			int pathCount = 0; 
+			if(diffX != 0 && diffY == 0) { /*Cycles through X positions and returns false if there's 
+				any collisions*/
+				for(int f=Math.min(currX, endX) + 1; f<Math.max(currX, endX); f++) {
+					toAdd = tileBoard[currY][f]; 
+					path[pathCount] = toAdd; 
+					pathCount++;
+				}
+			} else if(diffX == 0 && diffY != 0) { //add tiles for Y path
+				for(int f=Math.min(currY, endY) + 1; f<Math.max(currY, endY); f++) {
+					toAdd = tileBoard[f][currX];
+					path[pathCount] = toAdd; 
+					pathCount++;
+				}
+			} else { /*the proposed move is diagonal, now check for collisions before 
+				move can be completed*/
+	    			while (currX != end.getX() && currY != end.getY()) { //add tiles for diagonal path
+	    				currX += start.getX() < end.getX() ? 1 : -1; //changes X for diagonal
+	    				currY += start.getY() < end.getY() ? 1 : -1; //changes Y for diagonal
+	    				toAdd = tileBoard[currY][currX];
+					path[pathCount] = toAdd; 
+					pathCount++;
+	    			}
+	    		} 
+		} else {
+			return null; 	
+		}
+	}
+	
+	@Override
 	public boolean checkingPiece(Tile start) {
 		Tile[][] board = Board.tileBoard; 
 			for(Tile[] row: board) {

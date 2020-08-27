@@ -56,6 +56,8 @@ public class Queen extends Piece {
 	@Override
 	public Tile[] getPath(Tile start, Tile end, Tile[][] tileBoard) {
 		if (canMove(start, end)) {
+			int currX = start.getX(), endX = end.getX(), currY = start.getY(), endY = end.getY(), 
+					diffX = Math.abs(start.getX() - end.getX()), diffY = Math.abs(start.getY() - end.getY());
 			Tile toAdd; 
 			Tile[] path = new Tile[8]; 
 			int pathCount = 0; 

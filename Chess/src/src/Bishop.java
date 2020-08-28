@@ -49,22 +49,21 @@ public class Bishop extends Piece {
 	}
 	
 	@Override
-	public Tile[] getPath(Tile start, Tile end, Tile[][] tileBoard) {
+	public Tile[] getPath(Tile start, Tile end) {
 		Tile[] path = new Tile[8];
-		int tileCount = 0;
-		tempX = start.getX(), tempY = start.getY();
+		int tileCount = 0, tempX = start.getX(), tempY = start.getY();
 		if (canMove(start, end)) {
 	    		while (tempX != end.getX() && tempY != end.getY()) { //check each tile in the diagonal for a collision before the end is reached
 	    			tempX += start.getX() < end.getX() ? 1 : -1; //changes X for diagonal
 	    			tempY += start.getY() < end.getY() ? 1 : -1; //changes Y for diagonal
 				if (tempX != end.getX() && tempY != end.getY()) {//we ignore last tile since this is to check for blocks for check/checkmate
-					Tile toAdd = tileBoard[tempY][tempX]; //first, ..., n- 1 tile of path
+					Tile toAdd = Board.tileBoard[tempY][tempX]; //first, ..., n- 1 tile of path
 					path[tileCount] = toAdd; //add tile to path
 					tileCount++; 
 				}						      
 			}
-			return path; //return the tile path	
 		}
+		return path;
 	}
 	
 	@Override

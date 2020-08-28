@@ -73,24 +73,24 @@ public class Rook extends Piece {
 		return false; 	
 	}
 	
-	public Tile[] getPath(Tile start, Tile end, Tile[][] tileBoard) {
+	public Tile[] getPath(Tile start, Tile end) {
 		if (canMove(start, end)) {
-			Tile toAdd; 
-			int pathCount; 
-			Tile[] path;
-			if(diffX) { /*Cycles through X positions and returns false if there's any collisions*/
-			for(int f=Math.min(start.getX(), endX) + 1; f<Math.max(start.getX(), endX); f++) {
-				toAdd = tileBoard[start.getY()][f]; 
-				path[pathCount] = toAdd; 
+			int pathCount = 0, startX = start.getX(), endX = end.getX(), startY = start.getY(), endY = end.getY(),
+					diffX = Math.abs(startX - endX); 
+			Tile[] path = new Tile[8];
+			if(diffX != 0) { /*Cycles through X positions and returns false if there's any collisions*/
+				for(int f=Math.min(start.getX(), endX) + 1; f<Math.max(start.getX(), endX); f++) {
+					path[pathCount++] = Board.tileBoard[start.getY()][f]; 
+				}
 			}
-		}
-		else { /*Same as above, but with Y positions*/
-			for(int f=Math.min(startY, endY) + 1; f<Math.max(startY, endY); f++) {
-				toAdd = tileBoard[f][start.getX()]; 
-				path[pathCount] = toAdd; 
-			}
-		}	
-		} else {
+			else { /*Same as above, but with Y positions*/
+				for(int f=Math.min(startY, endY) + 1; f<Math.max(startY, endY); f++) {
+					path[pathCount++] = Board.tileBoard[f][start.getX()]; 
+				}
+			}	
+			return path;
+		} 
+		else {
 			return null; 	
 		}
 	}

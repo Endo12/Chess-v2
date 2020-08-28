@@ -33,7 +33,8 @@ import javafx.stage.Stage;
 
 public class ChessGUI extends Application {
 	public static GridPane gPane = new GridPane();
-	public boolean whitesTurn = true, setStart = true, madeLabels = false;
+	public boolean whitesTurn = true, setStart = true, madeLabels = false; /*setStart tells you if you
+	 	are setting the start tile*/
 	private Tile start, end;
 	public static Stage stage;
 	private static Scene scene;
@@ -164,41 +165,44 @@ public class ChessGUI extends Application {
 		}
     	@Override
 		public void handle(MouseEvent arg0) {
-    		if(setStart) {
-			Tile[][] board = Board.tileBoard; 
 			Tile allyKingTile; 
-			for(Tile[] row: board) {
+			for(Tile[] row: Board.tileBoard) {
 				for(Tile t: row) {
 					if (t.getPiece() != null && t.getPiece() instanceof King) { //its a king
 						if (whitesTurn) {//if it's whites turn, locate white king
 							if (t.getPiece().getColor()) {
 								allyKingTile = t; //current player's king tile 
+								break;
 							}
-						} else { //else locate black king
+						}
+						else { //else locate black king
 							if (!t.getPiece().getColor()) {
 								allyKingTile = t; //current players king tile 
+								break;
 							}
-						}	
+						}
 					} // The tile of the current player's king is in allyKingTile 
 				}
 			}
-// 			allyKing = t.getPiece(); // current player's king
-// 			if (allyKing.isInCheck()) {
-				/*for each piece, see if it a checking piece. If checking piece, see that it can/can't 
-				* be captured. 
-// 				if (kingCantMove && noBlock && noCapture) { 
-// 					checkmate; //GAME ENDS
-// 				} else {
-// 					check; 	
-// 				}
-// 			} else if (NoPieceCanMove) { HERE WE MIGHT HAVE REALLY SLOW LOOP 
-// 				stalemate; //GAME ENDS
-				//for each piece, use canMove only on enemy/unoocupied tiles
-				//global boolean
-				
-// 			}
-				
+			King king = (King) allyKingTile.getPiece(); // current player's king
+			if (allyKing.isInCheck()) {
+			/*for each piece, see if it a checking piece. If checking piece, see that it can/can't 
+			* be captured. */
+				if (king.cantMove(allyKingTile) && noBlock && noCapture) { 
+					checkmate; //GAME ENDS
+				} 
+				else {
+					check; 	
+				}
+			} 
+			else if (NoPieceCanMove) { //HERE WE MIGHT HAVE REALLY SLOW LOOP 
+				stalemate; //GAME ENDS
+			//for each piece, use canMove only on enemy/unoocupied tiles
+			//global boolean
 			
+			}
+			
+    		if(setStart) {
     			Tile temp = Board.tileBoard[row][col];
     			Piece myPiece = temp.getPiece();
     			if(myPiece != null && myPiece.getColor() == whitesTurn) {
@@ -227,7 +231,7 @@ public class ChessGUI extends Application {
 				updateTile(Board.tileBoard, endX, endY);
 				
 			}
-			//updateBoard();
+			updateBoard();
     		updateLabels();
     		if(Board.whiteAlive != Board.blackAlive) {
     			System.out.println((Board.whiteAlive ? "White" : "Black") + " wins!\nWhite points: " + 

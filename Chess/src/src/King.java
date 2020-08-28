@@ -122,4 +122,17 @@ public class King extends Piece {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public boolean cantMove(Tile curr) {
+		int currX = curr.getX(), currY = curr.getY();
+		for(int c = currX - 1; c < currX + 2; c++) {
+			for(int r = currY - 1; r < currY + 2; r++) {
+				if(r >= 0 && c >= 0 && r < 8 && c < 8 && !(c == currX && r == currY) && canMove(curr,
+						Board.tileBoard[r][c])) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }

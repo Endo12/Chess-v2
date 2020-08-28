@@ -114,7 +114,7 @@ public abstract class Piece {
 		}
 	}
 	
-	public Tile[] getMovePath(Tile start, Tile end) { //returns an array of tiles representing the path from start to end 
+	public Tile[] getPath(Tile start, Tile end) { //returns an array of tiles representing the path from start to end 
 		return null; 
 	}
 	

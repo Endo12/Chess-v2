@@ -117,10 +117,6 @@ public abstract class Piece {
 	public Tile[] getPath(Tile start, Tile end) { //returns an array of tiles representing the path from start to end 
 		return null; 
 	}
-	
-	public boolean checkingPiece() { //a piece is a checking piece if it has the enemy king in check 
-		return false; 
-	}
 	public boolean getColor() {
 		return isWhite;
 	}

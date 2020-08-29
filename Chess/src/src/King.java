@@ -1,5 +1,7 @@
 package src;
 
+import java.util.TreeSet;
+
 public class King extends Piece {
 	
 	public King(boolean isWhite) {
@@ -134,5 +136,37 @@ public class King extends Piece {
 			}
 		}
 		return true;
+	}
+	
+	public boolean noBlock(Tile curr) {
+		TreeSet<Tile> tiles = new TreeSet<Tile>();
+		Tile[][] board = Board.tileBoard;
+		for(Tile[] row : board) {
+			for(Tile t : row) {
+				Piece p = t.getPiece();
+				if(p != null && p.getColor() != this.getColor() && p.checkingPiece(t)) {
+					Tile[] path = p.getPath(t, curr);
+					for(Tile part: path) {
+						tiles.add(part);
+					}
+				}
+			}
+		}
+		//Consider creating a set of every alive black/white piece to decrease runtime
+		for(Tile part : tiles) {
+			for(Tile[] row : board) {
+				for(Tile t : row) {
+					Piece p = t.getPiece();
+					if(p != null && p.getColor() == this.getColor() && p.canMove(t, part)) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean noCapture(Tile curr) {
+		
 	}
 }

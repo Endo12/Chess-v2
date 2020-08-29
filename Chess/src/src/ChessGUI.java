@@ -188,7 +188,10 @@ public class ChessGUI extends Application {
 			if (allyKing.isInCheck()) {
 			/*for each piece, see if it a checking piece. If checking piece, see that it can/can't 
 			* be captured. */
-				if (king.cantMove(allyKingTile) && noBlock && noCapture) { 
+				
+			/*consider creating a set of every checking piece that noBlock and noCapture can share to 
+				decrease runtime*/
+				if (king.cantMove(allyKingTile) && king.noBlock(allyKingTile) && noCapture) { 
 					checkmate; //GAME ENDS
 				} 
 				else {

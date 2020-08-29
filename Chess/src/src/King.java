@@ -1,11 +1,17 @@
 package src;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.TreeSet;
 
 public class King extends Piece {
 	
+	private HashMap<Piece, Tile> checkingPieces;
+	
 	public King(boolean isWhite) {
 		super(isWhite, 0); 	
+		checkingPieces = new HashMap<Piece, Tile>();
 	}
 	
 	public boolean canMove(Tile start, Tile end) {
@@ -125,6 +131,19 @@ public class King extends Piece {
 		return false;
 	}
 	
+	public void updateCheckingPieces(Tile curr) {
+		checkingPieces.clear();
+		Tile[][] board = Board.tileBoard;
+		for(Tile[] row : board) {
+			for(Tile t : row) {
+				Piece p = t.getPiece();
+				if(p != null && p.getColor() != this.getColor() && p.checkingPiece(t)) {
+					checkingPieces.put(p, t);
+				}
+			}
+		}
+	}
+	
 	public boolean cantMove(Tile curr) {
 		int currX = curr.getX(), currY = curr.getY();
 		for(int c = currX - 1; c < currX + 2; c++) {
@@ -141,18 +160,11 @@ public class King extends Piece {
 	public boolean noBlock(Tile curr) {
 		TreeSet<Tile> tiles = new TreeSet<Tile>();
 		Tile[][] board = Board.tileBoard;
-		for(Tile[] row : board) {
-			for(Tile t : row) {
-				Piece p = t.getPiece();
-				if(p != null && p.getColor() != this.getColor() && p.checkingPiece(t)) {
-					Tile[] path = p.getPath(t, curr);
-					for(Tile part: path) {
-						tiles.add(part);
-					}
-				}
+		for(Map.Entry<Piece, Tile> e : checkingPieces.entrySet()) {
+			for(Tile t : e.getKey().getPath(e.getValue(), curr)) {
+				tiles.add(t);
 			}
 		}
-		//Consider creating a set of every alive black/white piece to decrease runtime
 		for(Tile part : tiles) {
 			for(Tile[] row : board) {
 				for(Tile t : row) {
@@ -168,5 +180,6 @@ public class King extends Piece {
 	
 	public boolean noCapture(Tile curr) {
 		
+		return true;
 	}
 }

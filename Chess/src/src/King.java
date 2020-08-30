@@ -178,8 +178,17 @@ public class King extends Piece {
 		return true;
 	}
 	
-	public boolean noCapture(Tile curr) {
-		
+	public boolean noCapture() {
+		for(Map.Entry<Piece, Tile> e : checkingPieces.entrySet()) {
+			for(Tile[] row : Board.tileBoard) {
+				for(Tile t : row) {
+					Piece p = t.getPiece();
+					if(p != null && p.getColor() != e.getKey().getColor() && p.canMove(t, e.getValue())) {
+						return true;
+					}
+				}
+			}
+		}
 		return true;
 	}
 }

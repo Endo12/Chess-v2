@@ -191,7 +191,8 @@ public class ChessGUI extends Application {
 				
 			/*consider creating a set of every checking piece that noBlock and noCapture can share to 
 				decrease runtime*/
-				if (king.cantMove(allyKingTile) && king.noBlock(allyKingTile) && noCapture) { 
+				king.updateCheckingPieces(allyKingTile);
+				if (king.cantMove(allyKingTile) && king.noBlock(allyKingTile) && king.noCapture()) { 
 					checkmate; //GAME ENDS
 				} 
 				else {

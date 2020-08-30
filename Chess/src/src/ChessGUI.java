@@ -199,13 +199,45 @@ public class ChessGUI extends Application {
 					check; 	
 				}
 			} 
-			else if (NoPieceCanMove) { //HERE WE MIGHT HAVE REALLY SLOW LOOP 
-				stalemate; //GAME ENDS
-			//for each piece, use canMove only on enemy/unoocupied tiles
-			//global boolean
-			
+			else { //check for stalemate
+				boolean canMove = false; //assume no piece can move 
+				for (Tile[] row: tileBoard) {
+					for(Tile t: row) { // for each tile we are going to test if there's a piece 
+						while (canMove == false) {
+							if (t.getPiece() != null) { //confirm there's a piece 
+								if (whitesTurn && t.getPiece().getColor()) { //we will test all of white's potential moves
+									for(Tile[] row2: tileBoard) {
+										for(Tile t2: row2) {
+											if (!t2.getPiece() || !t2.getPiece().getColor()) { 
+												if (t.getPiece().canMove(t,t2)) { //if white can move to any enemy or empty tiles
+													canMove = true; //then they can move
+												}
+											}
+										}
+									}
+								} else { // we will test all of black's potential moves
+									if (!t.getPiece().getColor()) { //if black piece
+										for(Tile[] row2: tileBoard) {
+											for(Tile t2: row2) {
+												if (!t2.getPiece() || t2.getPiece().getColor()) { //if black can move to any enemy or empty tiles 
+													if (t.getPiece().canMove(t,t2)) { 
+														canMove = true; //then they can move
+													}
+												}
+											}
+										}
+									}
+								} //BLACK CHECK
+							} //NULL CHECK
+						} //canMove == false 	
+					}//nested loop
+				}//first loop
+				
+				if (!canMove) {
+				//RUN STALEMATE CODE		
 			}
-			
+		}
+				
     		if(setStart) {
     			Tile temp = Board.tileBoard[row][col];
     			Piece myPiece = temp.getPiece();
